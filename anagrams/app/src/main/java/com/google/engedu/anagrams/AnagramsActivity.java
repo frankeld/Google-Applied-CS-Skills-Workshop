@@ -51,7 +51,7 @@ public class AnagramsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anagrams);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         AssetManager assetManager = getAssets();
         try {
@@ -62,7 +62,7 @@ public class AnagramsActivity extends AppCompatActivity {
             toast.show();
         }
         // Set up the EditText box to process the content of the box when the user hits 'enter'
-        final EditText editText = (EditText) findViewById(R.id.editText);
+        final EditText editText = findViewById(R.id.editText);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setImeOptions(EditorInfo.IME_ACTION_GO);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -80,7 +80,7 @@ public class AnagramsActivity extends AppCompatActivity {
     }
 
     private void processWord(EditText editText) {
-        TextView resultView = (TextView) findViewById(R.id.resultView);
+        TextView resultView = findViewById(R.id.resultView);
         String word = editText.getText().toString().trim().toLowerCase();
         if (word.length() == 0) {
             return;
@@ -94,7 +94,7 @@ public class AnagramsActivity extends AppCompatActivity {
         }
         resultView.append(Html.fromHtml(String.format("<font color=%s>%s</font><BR>", color, word)));
         editText.setText("");
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.show();
     }
 
@@ -121,13 +121,13 @@ public class AnagramsActivity extends AppCompatActivity {
     }
 
     public boolean defaultAction(View view) {
-        TextView gameStatus = (TextView) findViewById(R.id.gameStatusView);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        EditText editText = (EditText) findViewById(R.id.editText);
-        TextView resultView = (TextView) findViewById(R.id.resultView);
+        TextView gameStatus = findViewById(R.id.gameStatusView);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        EditText editText = findViewById(R.id.editText);
+        TextView resultView = findViewById(R.id.resultView);
         if (currentWord == null) {
             currentWord = dictionary.pickGoodStarterWord();
-            anagrams = dictionary.getAnagrams(currentWord);
+            anagrams = dictionary.getAnagramsWithOneMoreLetter(currentWord);
             gameStatus.setText(Html.fromHtml(String.format(START_MESSAGE, currentWord.toUpperCase(), currentWord)));
             fab.setImageResource(android.R.drawable.ic_menu_help);
             fab.hide();
