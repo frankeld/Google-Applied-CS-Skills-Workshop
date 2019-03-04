@@ -22,8 +22,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Arrays;
+import java.util.Set;
 
 public class AnagramDictionary {
 
@@ -31,9 +33,9 @@ public class AnagramDictionary {
     private static final int DEFAULT_WORD_LENGTH = 3;
     private static final int MAX_WORD_LENGTH = 7;
     private Random random = new Random();
-    private HashSet<String> wordSet = new HashSet<>();
-    private HashMap<String, ArrayList<String>> lettersToWord = new HashMap<>();
-    private HashMap<Integer, ArrayList<String>> sizeToWords = new HashMap<>();
+    private Set<String> wordSet = new HashSet<>();
+    private Map<String, ArrayList<String>> lettersToWord = new HashMap<>();
+    private Map<Integer, ArrayList<String>> sizeToWords = new HashMap<>();
     private int wordLength = DEFAULT_WORD_LENGTH;
 
     public AnagramDictionary(Reader reader) throws IOException {
@@ -52,13 +54,10 @@ public class AnagramDictionary {
             }
 
             String sortedWord = sortLetters(word);
-            if (lettersToWord.containsKey(sortedWord)) {
-                lettersToWord.get(sortedWord).add(word);
-            } else {
-                ArrayList<String> wordCombos = new ArrayList<>();
-                wordCombos.add(word);
-                lettersToWord.put(sortedWord, wordCombos);
+            if (!lettersToWord.containsKey(sortedWord)) {
+                lettersToWord.put(sortedWord, new ArrayList<String>());
             }
+            lettersToWord.get(sortedWord).add(word);
 
         }
     }
